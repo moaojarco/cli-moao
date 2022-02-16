@@ -1,8 +1,11 @@
 {
   "name": "cli-moao",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "main": "./cli/index.js",
+  "bin": {
+    "moao": "cli/index.js"
+  },
   "scripts": {
     "dev": "node ./cli/index.js"
   },
