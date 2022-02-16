@@ -18,20 +18,26 @@ function createFC() {
       fs.mkdirSync(`./components`);
       console.log("Components folder created! 💣");
     }
+    fs.mkdirSync(`./components/${name}`);
 
     fs.writeFileSync(
-      `./components/${componentName}.tsx`,
-      `import { useState } from 'react';
+      `./components/${componentName}/index.tsx`,
+      `import { useState } from "react";
+import { styles } from "./styles.module.scss";
 
-    const ${componentName} = () => {
+const ${componentName} = () => {
+  const [initial, setInitial] = useState<string>("");
 
-      const [initial, setInitial] = useState <string> ("");
-
-      return (
+  return (
         <h1>Component</h1>
       )
     }`
     );
+
+    fs.writeFileSync(
+      `components/${componentName}/styles.module.scss`,
+      ``
+    )
     readline.close();
   });
 }
@@ -39,11 +45,9 @@ function createFC() {
 function deleteFC() {
   let componentName = readline.question(`Enter Component to delete: `, (name) => {
     componentName = name;
-    let componentPath = `./components/${name}.tsx`;
+    let componentPath = `./components/${componentName}`;
 
-    fs.unlink(componentPath, () => {
-      console.log("Component deleted! 💣");
-    });
+    fs.rm(componentPath, { recursive: true }, () => console.log('done'));
 
     readline.close();
   });
