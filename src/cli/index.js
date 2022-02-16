@@ -1,8 +1,6 @@
 const fs = require("fs");
 
-fs.basedir = "./src";
 
-const componentsFolder = "Components" || "components";
 
 const readline = require("readline").createInterface({
   input: process.stdin,
@@ -14,7 +12,7 @@ function createFC() {
     console.log(`Created ${name}`);
     componentName = name;
 
-    if (fs.existsSync(`./src/${componentsFolder}/${componentName}.tsx`)) throw Error;
+    if (fs.existsSync(`./src/components/${componentName}.tsx`)) throw Error;
 
     fs.writeFileSync(
       `./src/components/${componentName}.tsx`,
