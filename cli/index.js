@@ -15,14 +15,12 @@ function createFC() {
     componentName = name;
 
     if (!componentsFolder) {
-      fs.mkdirSync("components");
+      fs.mkdirSync(`${__dirname}/components`);
+      console.log("Components folder created! 💣");
     }
 
-
-    if (fs.existsSync(`./components/${componentName}.tsx`)) throw Error;
-
     fs.writeFileSync(
-      `./components/${componentName}.tsx`,
+      `${__dirname}/components/${componentName}.tsx`,
       `import { useState } from 'react';
 
     const ${componentName} = () => {
@@ -41,7 +39,7 @@ function createFC() {
 function deleteFC() {
   let componentName = readline.question(`Enter Component to delete: `, (name) => {
     componentName = name;
-    let componentPath = `./components/${name}.tsx`;
+    let componentPath = `${__dirname}/components/${name}.tsx`;
 
     fs.unlink(componentPath, () => {
       console.log("Component deleted! 💣");
