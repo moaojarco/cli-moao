@@ -44,7 +44,13 @@ function deleteFC() {
   });
 }
 
-readline.question(`What you want to do? ('create' or 'delete') `, (res) => {
-  if (res.includes("create")) createFC();
-  if (res.includes("delete")) deleteFC();
-});
+function askUser() {
+  readline.question(`What you want to do? ('create' or 'delete') `, (res) => {
+    if (res.includes("create")) createFC();
+    if (res.includes("delete")) deleteFC();
+  });
+}
+
+
+
+module.exports = { createFC, deleteFC, askUser }

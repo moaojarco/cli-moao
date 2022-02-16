@@ -1,0 +1,20 @@
+{
+  "name": "cli-moao",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/moaojarco/cli-moao.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/moaojarco/cli-moao/issues"
+  },
+  "homepage": "https://github.com/moaojarco/cli-moao#readme"
+}
