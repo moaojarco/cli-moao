@@ -1,26 +1,26 @@
 const fs = require("fs");
-const path = require("path");
+require('path').resolve('./')
 
 const readline = require("readline").createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-let componentsFolder = fs.existsSync(`${__dirname}/components`);
+let componentsFolder = fs.existsSync(`./components`);
 
 function createFC() {
   let componentName = readline.question(`Enter the component name: `, (name) => {
     console.log(`Component created: ${name} ✅`);
-    console.log(`Please check ${__dirname}/components/${name}.tsx`);
+    console.log(`Please check ./components/${name}.tsx`);
     componentName = name;
 
     if (!componentsFolder) {
-      fs.mkdirSync(`${__dirname}/components`);
+      fs.mkdirSync(`./components`);
       console.log("Components folder created! 💣");
     }
 
     fs.writeFileSync(
-      `${__dirname}/components/${componentName}.tsx`,
+      `./components/${componentName}.tsx`,
       `import { useState } from 'react';
 
     const ${componentName} = () => {
@@ -39,7 +39,7 @@ function createFC() {
 function deleteFC() {
   let componentName = readline.question(`Enter Component to delete: `, (name) => {
     componentName = name;
-    let componentPath = `${__dirname}/components/${name}.tsx`;
+    let componentPath = `./components/${name}.tsx`;
 
     fs.unlink(componentPath, () => {
       console.log("Component deleted! 💣");
