@@ -37,7 +37,7 @@ function createFC() {
           `import { useState } from "react";
 import styles from "./${componentName}.module.scss";
 
-const ${componentName} = () => {
+export const ${componentName} = () => {
   const [initial, setInitial] = useState<string>("");
 
   return (
@@ -45,9 +45,7 @@ const ${componentName} = () => {
       <h1>Component</h1>
     </>
   );
-};
-
-export default ${componentName};    
+};  
 `
         );
         refreshComponentsExports(componentName);
