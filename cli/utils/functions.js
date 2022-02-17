@@ -42,7 +42,7 @@ export const ${componentName} = () => {
 
   return (
     <>
-      <h1>Component</h1>
+      <h1>${componentName}</h1>
     </>
   );
 };  
