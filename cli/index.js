@@ -33,9 +33,14 @@ const ${componentName} = () => {
   const [initial, setInitial] = useState<string>("");
 
   return (
-        <h1>Component</h1>
-      )
-    }`
+    <>
+      <h1>Component</h1>
+    </>
+  );
+};
+
+export default ${componentName};    
+`
       );
 
       fs.writeFileSync(
