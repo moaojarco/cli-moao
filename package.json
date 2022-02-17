@@ -1,13 +1,15 @@
 {
   "name": "cli-moao",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "",
-  "main": "./cli/index.js",
+  "main": "./cli-react/index.js",
   "bin": {
-    "moao": "cli/index.js"
+    "moao-react": "cli-react/index.js",
+    "moao-vue": "cli-vue/index.js"
   },
   "scripts": {
-    "dev": "node ./cli/index.js"
+    "moao-react": "node ./cli-react/index.js",
+    "moao-vue": "node ./cli-vue/index.js"
   },
   "repository": {
     "type": "git",
