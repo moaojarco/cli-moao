@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const fs = require("fs");
 require('path').resolve('./')
 
@@ -9,20 +11,22 @@ const readline = require("readline").createInterface({
 let componentsFolder = fs.existsSync(`./components`);
 
 function createFC() {
-  let componentName = readline.question(`Enter the component name: `, (name) => {
-    console.log(`Component created: ${name} ✅`);
-    console.log(`Please check ./components/${name}.tsx`);
-    componentName = name;
+  try {
+    let componentName = readline.question(`Enter the component name: `, (name) => {
+      console.log(`Component created: ${name} ✅`);
+      console.log(`Please check ./components/${name}.tsx`);
+      componentName = name;
 
-    if (!componentsFolder) {
-      fs.mkdirSync(`./components`);
-      console.log("Components folder created! 💣");
-    }
-    fs.mkdirSync(`./components/${name}`);
+      if (!componentsFolder) {
+        fs.mkdirSync(`./components`);
+        console.log("Components folder created! 💣");
+      }
 
-    fs.writeFileSync(
-      `./components/${componentName}/index.tsx`,
-      `import { useState } from "react";
+      fs.mkdirSync(`./components/${name}`);
+
+      fs.writeFileSync(
+        `./components/${componentName}/index.tsx`,
+        `import { useState } from "react";
 import { styles } from "./styles.module.scss";
 
 const ${componentName} = () => {
@@ -32,14 +36,18 @@ const ${componentName} = () => {
         <h1>Component</h1>
       )
     }`
-    );
+      );
 
-    fs.writeFileSync(
-      `components/${componentName}/styles.module.scss`,
-      ``
-    )
-    readline.close();
-  });
+      fs.writeFileSync(
+        `components/${componentName}/styles.module.scss`,
+        ``
+      )
+      readline.close();
+    });
+  } catch (error) {
+    console.error("Error creating component");
+  }
+
 }
 
 function deleteFC() {
@@ -60,7 +68,9 @@ function askUser() {
   });
 }
 
-askUser()
+if (require.main === module) {
+  askUser()
+}
 
 
 module.exports = { createFC, deleteFC, askUser }
