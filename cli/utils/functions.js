@@ -6,7 +6,7 @@ const readline = require("readline").createInterface({
   output: process.stdout,
 });
 
-let importComponentsFile = "./components/index.ts";
+let exportComponentsFile = "./components/index.ts";
 let componentName;
 let componentsFolder = "./components";
 
@@ -24,7 +24,7 @@ function createFC() {
           console.log("Components folder created! 📁");
         }
 
-        if (!importComponentsFile) {
+        if (!exportComponentsFile) {
           fs.writeFileSync(`./components/index.ts`, "");
           console.log("Created index.ts file! 📄");
         }
@@ -48,8 +48,11 @@ export const ${componentName} = () => {
 };  
 `
         );
-        refreshComponentsExports(componentName);
         fs.writeFileSync(`components/${componentName}/${componentName}.module.scss`, ``);
+
+        refreshComponentsExports(componentName, "add");
+        console.log(`Export "${componentName}" added to index.ts file! 📄`);
+
         readline.close();
       }
     );
@@ -66,6 +69,8 @@ function deleteFC() {
       let componentPath = `./components/${componentName}`;
 
       fs.rm(componentPath, { recursive: true }, () => console.log("done"));
+
+      refreshComponentsExports(componentName, "delete");
 
       readline.close();
     }
@@ -84,22 +89,34 @@ function askUser() {
     (res) => {
       if (res.includes("create")) createFC();
       if (res.includes("delete")) deleteFC();
-      else askUser();
+
+      if (!res.includes("create") && !res.includes("delete")) {
+        console.log("🎈 Error : Invalid option");
+        askUser();
+      }
+
+      if (res.includes("exit")) process.exit();
     }
   );
 }
 
-function refreshComponentsExports(componentName) {
-  if (importComponentsFile) {
-    if (importComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) console.log("Component already exists");
-
-    if (!importComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) {
-      fs.appendFileSync('./components/index.ts', `
-export * from "./${componentName}/${componentName}";`);
-      console.log(`Export "${componentName}" added to index.ts file! 📄`);
+function refreshComponentsExports(componentName, method) {
+  if (method === "add") {
+    if (exportComponentsFile) {
+      if (!exportComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) {
+        fs.appendFileSync('./components/index.ts', `
+export * from "./${componentName}/${componentName}"`);
+      }
     }
-  }
+  };
 
-};
+  if (method === "delete") {
+    if (fs.readFileSync(exportComponentsFile, "utf8").includes(`export * from "./${componentName}/${componentName}"`)) {
+      let file = fs.readFileSync(exportComponentsFile, "utf8");
+      file = file.replace(`export * from "./${componentName}/${componentName}"`, "").trim();
+      fs.writeFileSync(exportComponentsFile, file);
+    }
+  };
+}
 
 module.exports = { askUser, createFC, deleteFC, refreshComponentsExports };
