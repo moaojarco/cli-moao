@@ -1,4 +1,4 @@
-This script will create a new React/Vue component.
+This script will create a new React / Vue component.
 Note: Use with Next.js or Nuxt.js.
 
 ## How usage?
