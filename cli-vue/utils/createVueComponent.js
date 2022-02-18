@@ -6,14 +6,15 @@ let componentFolderExists = fs.existsSync("./components");
 
 
 function createVueComponent() {
+  try {
 
-  if (!componentFolderExists) {
-    fs.mkdirSync("./components");
-    console.log("Components folder created! 📁");
-  }
+    if (!componentFolderExists) {
+      fs.mkdirSync("./components");
+      console.log("Components folder created! 📁");
+    }
 
-  readline.question("Enter the component name: ", (componentName) => {
-    fs.writeFileSync(`${componentsFolder}/${componentName}.vue`, `
+    readline.question("Enter the component name: ", (componentName) => {
+      fs.writeFileSync(`${componentsFolder}/${componentName}.vue`, `
 <template>
   <div>
     <h1>${componentName}</h1>
@@ -26,9 +27,13 @@ export default {
 }
 </script>
 `)
-    console.log(`Component "${componentName}" created! ✅`);
-    readline.close();
-  });
+      console.log(`Component "${componentName}" created! ✅`);
+      readline.close();
+    });
+  } catch (error) {
+    console.error("Error:", error.message);
+  }
 }
+
 
 module.exports = { createVueComponent };

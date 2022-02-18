@@ -7,13 +7,15 @@ let componentFolderExists = fs.existsSync("./components");
 
 function createReactComponent() {
   try {
+
+    if (!componentFolderExists) {
+      fs.mkdirSync("./components");
+      console.log("Components folder created! 📁");
+    }
+
     readline.question(
       `Enter the component name: `,
       (componentName) => {
-        if (!componentFolderExists) {
-          fs.mkdirSync("./components");
-          console.log("Components folder created! 📁");
-        }
 
         if (!exportComponentsFileExists) {
           fs.writeFileSync(`./components/index.ts`, "");

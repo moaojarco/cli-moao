@@ -5,10 +5,10 @@ const { readline } = require("./readLineInterface");
 function askUser() {
   readline.question(
     `
-    _____________________________________________________
+     ____________________________________________________
+    |                 CLI Vue 🟢 (Nuxt.js)               |
     |                                                    |
-     Hey, what you want to do? ('create' or 'delete')    |
-    |____________________________________________________|
+    |_ Hey, what you want to do? ('create' or 'delete') _|
     
     -> `,
     (res) => {

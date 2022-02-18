@@ -1,5 +1,8 @@
-This script will create a new React / Vue component.
-Note: Use with Next.js or Nuxt.js.
+# CLI-Moao
+
+This script will create or delete a React / Vue component.
+
+> Note: Use with Next.js or Nuxt.js.
 
 ## How usage?
 
