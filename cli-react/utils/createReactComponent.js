@@ -17,10 +17,11 @@ function createReactComponent() {
 
         if (!exportComponentsFileExists) {
           fs.writeFileSync(`./components/index.ts`, "");
-          // console.log("Created index.ts file! 📄");
+          console.log("Created index.ts file! 📄");
         }
 
         refreshComponentsExports(componentName, "add");
+        console.log(`Export "${componentName}" added to index.ts file! 📄`);
 
         fs.mkdirSync(`./components/${componentName}`);
 
@@ -43,7 +44,6 @@ export const ${componentName} = () => {
         fs.writeFileSync(`components/${componentName}/${componentName}.module.scss`, ``);
 
         console.log(`Component "${componentName}" created! ✅`);
-        console.log(`Export "${componentName}" added to index.ts file! 📄`);
 
         readline.close();
       }

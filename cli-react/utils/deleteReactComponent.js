@@ -3,10 +3,8 @@ const { readline } = require("./readLineInterface");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
 
 function deleteReactComponent() {
-  let componentName = readline.question(
-    `Enter Component to delete: `,
-    (name) => {
-      componentName = name;
+  readline.question(`Enter Component to delete: `,
+    (componentName) => {
       let componentPath = `./components/${componentName}`;
 
       fs.rm(componentPath, { recursive: true }, () => console.log(`Component "${componentName}" deleted! 🗑️`));
@@ -15,7 +13,7 @@ function deleteReactComponent() {
 
       readline.close();
     }
-  );
+  )
 }
 
 module.exports = { deleteReactComponent };

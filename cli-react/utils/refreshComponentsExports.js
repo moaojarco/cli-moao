@@ -1,16 +1,15 @@
 const fs = require("fs");
 
 let exportComponentsFile = "./components/index.ts";
-let exportComponentsFileExists = fs.existsSync(exportComponentsFile);
 
 function refreshComponentsExports(componentName, method) {
   if (method === "add") {
-    if (exportComponentsFileExists) {
-      if (!exportComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) {
-        fs.appendFileSync('./components/index.ts', `
+
+    if (!exportComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) {
+      fs.appendFileSync('./components/index.ts', `
 export * from "./${componentName}/${componentName}"`);
-      }
     }
+
   };
 
   if (method === "delete") {
@@ -20,6 +19,10 @@ export * from "./${componentName}/${componentName}"`);
       fs.writeFileSync(exportComponentsFile, file);
     }
   };
+
+  if (fs.readFileSync(exportComponentsFile, "utf8").length <= 1) {
+    fs.unlinkSync(exportComponentsFile);
+  }
 }
 
 module.exports = { refreshComponentsExports };
