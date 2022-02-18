@@ -26,7 +26,7 @@ export default {
 }
 </script>
 `)
-    console.log(`Created ${componentName} component ✅`);
+    console.log(`Component "${componentName}" created! ✅`);
     readline.close();
   });
 }

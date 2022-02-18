@@ -1,6 +1,11 @@
+const fs = require("fs");
+
+let exportComponentsFile = "./components/index.ts";
+let exportComponentsFileExists = fs.existsSync(exportComponentsFile);
+
 function refreshComponentsExports(componentName, method) {
   if (method === "add") {
-    if (exportComponentsFile) {
+    if (exportComponentsFileExists) {
       if (!exportComponentsFile.includes(`export * from "./${componentName}/${componentName}";`)) {
         fs.appendFileSync('./components/index.ts', `
 export * from "./${componentName}/${componentName}"`);
@@ -16,3 +21,5 @@ export * from "./${componentName}/${componentName}"`);
     }
   };
 }
+
+module.exports = { refreshComponentsExports };

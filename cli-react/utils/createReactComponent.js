@@ -1,31 +1,28 @@
 const fs = require("fs");
 const { readline } = require("./readLineInterface");
+const { refreshComponentsExports } = require("./refreshComponentsExports");
 
-let exportComponentsFile = "./components/index.ts";
-let componentName;
+let exportComponentsFileExists = fs.existsSync("./components/index.ts")
 let componentFolderExists = fs.existsSync("./components");
-
 
 function createReactComponent() {
   try {
-    componentName = readline.question(
+    readline.question(
       `Enter the component name: `,
-      (name) => {
-        console.log(`Component created: "${name}" ✅`);
-        console.log(`Please check ./components/${name}.tsx`);
-        componentName = name;
-
+      (componentName) => {
         if (!componentFolderExists) {
           fs.mkdirSync("./components");
           console.log("Components folder created! 📁");
         }
 
-        if (!exportComponentsFile) {
+        if (!exportComponentsFileExists) {
           fs.writeFileSync(`./components/index.ts`, "");
-          console.log("Created index.ts file! 📄");
+          // console.log("Created index.ts file! 📄");
         }
 
-        fs.mkdirSync(`./components/${name}`);
+        refreshComponentsExports(componentName, "add");
+
+        fs.mkdirSync(`./components/${componentName}`);
 
         fs.writeFileSync(
           `./components/${componentName}/${componentName}.tsx`,
@@ -45,8 +42,8 @@ export const ${componentName} = () => {
         );
         fs.writeFileSync(`components/${componentName}/${componentName}.module.scss`, ``);
 
-        // refreshComponentsExports(componentName, "add");
-        // console.log(`Export "${componentName}" added to index.ts file! 📄`);
+        console.log(`Component "${componentName}" created! ✅`);
+        console.log(`Export "${componentName}" added to index.ts file! 📄`);
 
         readline.close();
       }
