@@ -1,13 +1,16 @@
 const fs = require("fs");
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
+const { readline } = require("./readLineInterface");
 
 let componentsFolder = "./components";
+let componentFolderExists = fs.existsSync("./components");
 
 
 function createVueComponent() {
+
+  if (!componentFolderExists) {
+    fs.mkdirSync("./components");
+    console.log("Components folder created! 📁");
+  }
 
   readline.question("Enter the component name: ", (componentName) => {
     fs.writeFileSync(`${componentsFolder}/${componentName}.vue`, `
