@@ -1,10 +1,10 @@
 
 const { createReactComponent } = require("./createReactComponent");
 const { deleteReactComponent } = require("./deleteReactComponent");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
 
-function askUser() {
-  readline.question(
+function promptReact() {
+  rl.question(
     `
      ____________________________________________________
     |                 CLI React 🔵 (Next.js)             |
@@ -18,12 +18,10 @@ function askUser() {
 
       if (!res.includes("create") && !res.includes("delete")) {
         console.log("🎈 Error : Invalid option");
-        askUser();
+        promptReact();
       }
-
-      if (res.includes("exit")) process.exit();
     }
   );
 }
 
-module.exports = { askUser };
+module.exports = { promptReact };

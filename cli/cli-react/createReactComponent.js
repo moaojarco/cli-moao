@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
 
 let exportComponentsFileExists = fs.existsSync("./components/index.ts")
@@ -13,7 +13,7 @@ function createReactComponent() {
       console.log("Components folder created! 📁");
     }
 
-    readline.question(
+    rl.question(
       `Enter the component name: `,
       (componentName) => {
 
@@ -47,7 +47,7 @@ export const ${componentName} = () => {
 
         console.log(`Component "${componentName}" created! ✅`);
 
-        readline.close();
+        rl.close();
       }
     );
   } catch (error) {

@@ -1,9 +1,9 @@
 const fs = require("fs");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
 
 function deleteReactComponent() {
-  readline.question(`Enter Component to delete: `,
+  rl.question(`Enter Component to delete: `,
     (componentName) => {
       let componentPath = `./components/${componentName}`;
 
@@ -11,7 +11,7 @@ function deleteReactComponent() {
 
       refreshComponentsExports(componentName, "delete");
 
-      readline.close();
+      rl.close();
     }
   )
 }

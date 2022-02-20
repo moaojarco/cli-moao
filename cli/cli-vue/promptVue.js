@@ -1,9 +1,10 @@
 const { createVueComponent } = require("./createVueComponent");
 const { deleteVueComponent } = require("./deleteVueComponent");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
 
-function askUser() {
-  readline.question(
+
+function promptVue() {
+  rl.question(
     `
      ____________________________________________________
     |                 CLI Vue 🟢 (Nuxt.js)               |
@@ -17,7 +18,7 @@ function askUser() {
 
       if (!res.includes("create") && !res.includes("delete")) {
         console.log("🎈 Error : Invalid option");
-        askUser();
+        promptVue();
       }
 
       if (res.includes("exit")) process.exit();
@@ -25,4 +26,4 @@ function askUser() {
   );
 }
 
-module.exports = { askUser };
+module.exports = { promptVue };

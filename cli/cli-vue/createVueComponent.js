@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
 
 let componentsFolder = "./components";
 let componentFolderExists = fs.existsSync("./components");
@@ -13,7 +13,7 @@ function createVueComponent() {
       console.log("Components folder created! 📁");
     }
 
-    readline.question("Enter the component name: ", (componentName) => {
+    rl.question("Enter the component name: ", (componentName) => {
       fs.writeFileSync(`${componentsFolder}/${componentName}.vue`, `
 <template>
   <div>
@@ -28,7 +28,8 @@ export default {
 </script>
 `)
       console.log(`Component "${componentName}" created! ✅`);
-      readline.close();
+      rl.close();
+
     });
   } catch (error) {
     console.error("Error:", error.message);

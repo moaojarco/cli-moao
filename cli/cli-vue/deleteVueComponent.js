@@ -1,12 +1,13 @@
 const fs = require("fs");
-const { readline } = require("./readLineInterface");
+const { rl } = require("../utils/readLineInterface");
+
 
 function deleteVueComponent() {
-  readline.question("Enter the component name: ", (componentName) => {
+  rl.question("Enter the component name: ", (componentName) => {
     let componentFile = `./components/${componentName}.vue`;
     fs.rm(componentFile, { recursive: true }, () => console.log(`Component "${componentName}" deleted! 🗑️`));
 
-    readline.close();
+    rl.close();
   })
 };
 
