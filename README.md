@@ -20,4 +20,4 @@ $ npx moao
 - Enter the name of component
 
 ## Demo:
-![Alt Text](https://media.giphy.com/media/EI1McZLTzcaTtpqkcv/giphy.gif)
+![Demo](https://media.giphy.com/media/Gv8fcFgdx6IRCNxaOw/giphy.gif)
