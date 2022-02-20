@@ -11,15 +11,10 @@ This script will create or delete a React / Vue component.
 $ npm i -g cli-moao
 ```
 
-- If you work on Next.js, run:
+- Start CLI and select what framework you're using
 ```shell
-$ npx moao-react
+$ npx moao
 ```
 
-- If you using Nuxt.js, run:
-```shell
-$ npx moao-vue
-```
-
-- Choose what you want to do? `create` or `delete`
+- Choose what you want to do: `create` or `delete`
 - Enter the name of component
