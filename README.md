@@ -18,3 +18,6 @@ $ npx moao
 
 - Choose what you want to do: `create` or `delete`
 - Enter the name of component
+
+## Demo:
+![Alt Text](https://media.giphy.com/media/EI1McZLTzcaTtpqkcv/giphy.gif)
