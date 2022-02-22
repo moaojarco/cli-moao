@@ -7,7 +7,6 @@ let componentFolderExists = fs.existsSync("./components");
 
 function createReactComponent() {
   try {
-
     if (!componentFolderExists) {
       fs.mkdirSync("./components");
       console.log("Components folder created! 📁");
@@ -27,22 +26,44 @@ function createReactComponent() {
 
         fs.mkdirSync(`./components/${componentName}`);
 
-        fs.writeFileSync(
-          `./components/${componentName}/${componentName}.tsx`,
-          `import { useState } from "react";
+        if (componentName === "Layout") {
+          console.log(componentName);
+
+          fs.writeFileSync(
+            `./components/${componentName}/${componentName}.tsx`,
+            `import { useState } from "react";
 import styles from "./${componentName}.module.scss";
 
-export const ${componentName} = () => {
-  const [initial, setInitial] = useState<string>("");
-
-  return (
-    <>
-      <h1>${componentName}</h1>
-    </>
-  );
+type Props = {
+  children: JSX.Element;
+}
+  
+export const ${componentName} = ({ children }: Props) => {
+  return <div>{children}</div>
 };  
-`
-        );
+  `
+          );
+        }
+
+        if (componentName !== "Layout") {
+          fs.writeFileSync(
+            `./components/${componentName}/${componentName}.tsx`,
+            `import { useState } from "react";
+  import styles from "./${componentName}.module.scss";
+  
+  export const ${componentName} = () => {
+    const [initial, setInitial] = useState<string>("");
+  
+    return (
+      <>
+        <h1>${componentName}</h1>
+      </>
+    );
+  };  
+  `
+          );
+        };
+
         fs.writeFileSync(`components/${componentName}/${componentName}.module.scss`, ``);
 
         console.log(`Component "${componentName}" created! ✅`);

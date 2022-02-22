@@ -2,7 +2,7 @@
 
 This script will create or delete a React / Vue component.
 
-> Note: Use with Next.js or Nuxt.js.
+> Note: Use with Next.js (with TypeScript) or Nuxt.js.
 
 ## Demo:
 ![Demo](https://media.giphy.com/media/TjWhzfrlbySVoaBNyK/giphy.gif)
