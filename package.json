@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/moaojarco/cli-moao#readme",
   "dependencies": {
+    "inquirer": "^8.2.0",
     "prompt-radio": "^1.2.1"
   }
 }
