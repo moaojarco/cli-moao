@@ -2,7 +2,7 @@ const fs = require("fs");
 const { rl } = require("../utils/readLineInterface");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
 
-let exportComponentsFileExists = fs.existsSync("./components/index.ts")
+let exportComponentsFileExists = fs.existsSync("./components/index.ts");
 let componentFolderExists = fs.existsSync("./components");
 
 function createReactComponent() {
@@ -12,26 +12,23 @@ function createReactComponent() {
       console.log("Components folder created! 📁");
     }
 
-    rl.question(
-      `Enter the component name: `,
-      (componentName) => {
+    rl.question(`Enter the component name: `, (componentName) => {
+      if (!exportComponentsFileExists) {
+        fs.writeFileSync(`./components/index.ts`, "");
+        console.log("Created index.ts file! 📄");
+      }
 
-        if (!exportComponentsFileExists) {
-          fs.writeFileSync(`./components/index.ts`, "");
-          console.log("Created index.ts file! 📄");
-        }
+      refreshComponentsExports(componentName, "add");
+      console.log(`Export "${componentName}" added to index.ts file! 📄`);
 
-        refreshComponentsExports(componentName, "add");
-        console.log(`Export "${componentName}" added to index.ts file! 📄`);
+      fs.mkdirSync(`./components/${componentName}`);
 
-        fs.mkdirSync(`./components/${componentName}`);
+      if (componentName === "Layout") {
+        console.log(componentName);
 
-        if (componentName === "Layout") {
-          console.log(componentName);
-
-          fs.writeFileSync(
-            `./components/${componentName}/${componentName}.tsx`,
-            `import { useState } from "react";
+        fs.writeFileSync(
+          `./components/${componentName}/${componentName}.tsx`,
+          `import { useState } from "react";
 import styles from "./${componentName}.module.scss";
 
 type Props = {
@@ -42,13 +39,13 @@ export const ${componentName} = ({ children }: Props) => {
   return <div>{children}</div>
 };  
   `
-          );
-        }
+        );
+      }
 
-        if (componentName !== "Layout") {
-          fs.writeFileSync(
-            `./components/${componentName}/${componentName}.tsx`,
-            `import { useState } from "react";
+      if (componentName !== "Layout") {
+        fs.writeFileSync(
+          `./components/${componentName}/${componentName}.tsx`,
+          `import { useState } from "react";
   import styles from "./${componentName}.module.scss";
   
   export const ${componentName} = () => {
@@ -61,16 +58,18 @@ export const ${componentName} = ({ children }: Props) => {
     );
   };  
   `
-          );
-        };
-
-        fs.writeFileSync(`components/${componentName}/${componentName}.module.scss`, ``);
-
-        console.log(`Component "${componentName}" created! ✅`);
-
-        rl.close();
+        );
       }
-    );
+
+      fs.writeFileSync(
+        `components/${componentName}/${componentName}.module.scss`,
+        ``
+      );
+
+      console.log(`Component "${componentName}" created! ✅`);
+
+      rl.close();
+    });
   } catch (error) {
     console.error("Error:", error.message);
   }
