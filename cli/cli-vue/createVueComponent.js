@@ -1,40 +1,45 @@
 const fs = require("fs");
-const { rl } = require("../utils/readLineInterface");
+const inquirer = require("../utils/inquirer");
 
-let componentsFolder = "./components";
 let componentFolderExists = fs.existsSync("./components");
 
-
-function createVueComponent() {
+async function createVueComponent() {
   try {
+    await inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "componentName",
+          message: "What component you want to create?",
+        },
+      ])
+      .then((answers) => {
+        if (!componentFolderExists) {
+          fs.mkdirSync("./components");
+          console.log("Components folder created! 📁");
+        }
 
-    if (!componentFolderExists) {
-      fs.mkdirSync("./components");
-      console.log("Components folder created! 📁");
-    }
-
-    rl.question("Enter the component name: ", (componentName) => {
-      fs.writeFileSync(`${componentsFolder}/${componentName}.vue`, `
+        fs.writeFileSync(
+          `./components/${answers.componentName}.vue`,
+          `
 <template>
   <div>
-    <h1>${componentName}</h1>
+    <h1>${answers.componentName}</h1>
   </div>
 </template>
 
 <script>
 export default {
-  name: '${componentName}'
+  name: '${answers.componentName}'
 }
 </script>
-`)
-      console.log(`Component "${componentName}" created! ✅`);
-      rl.close();
-
-    });
+`
+        );
+        console.log(`Component "${answers.componentName}" created! ✅`);
+      });
   } catch (error) {
-    console.error("Error:", error.message);
+    console.error(error.message);
   }
 }
-
 
 module.exports = { createVueComponent };

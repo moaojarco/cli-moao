@@ -1,14 +1,26 @@
 const fs = require("fs");
-const { rl } = require("../utils/readLineInterface");
+const inquirer = require("../utils/inquirer");
 
+async function deleteVueComponent() {
+  try {
+    await inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "componentName",
+          message: "Enter Component to delete: ",
+        },
+      ])
+      .then((answers) => {
+        let componentFile = `./components/${answers.componentName}.vue`;
 
-function deleteVueComponent() {
-  rl.question("Enter the component name: ", (componentName) => {
-    let componentFile = `./components/${componentName}.vue`;
-    fs.rm(componentFile, { recursive: true }, () => console.log(`Component "${componentName}" deleted! 🗑️`));
-
-    rl.close();
-  })
-};
+        fs.rm(componentFile, { recursive: true }, () =>
+          console.log(`Component "${answers.componentName}" deleted! 🗑️`)
+        );
+      });
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 
 module.exports = { deleteVueComponent };
