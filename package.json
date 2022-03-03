@@ -1,13 +1,17 @@
 {
   "name": "cli-moao",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "",
   "main": "./cli/index.js",
   "bin": {
-    "moao": "cli/index.js"
+    "moao": "cli/index.js",
+    "moao-react": "cli/cli-react/index.js",
+    "moao-vue": "cli/cli-vue/index.js"
   },
   "scripts": {
-    "moao": "node ./cli/index.js"
+    "moao": "node ./cli/index.js",
+    "moao-react": "node ./cli/cli-react/index.js",
+    "moao-vue": "node ./cli/cli-vue/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,7 +19,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/moaojarco/cli-moao/issues"
   },

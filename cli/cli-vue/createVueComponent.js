@@ -10,7 +10,7 @@ async function createVueComponent() {
         {
           type: "input",
           name: "componentName",
-          message: "What component you want to create?",
+          message: "Which component do you want to create?",
         },
       ])
       .then((answers) => {

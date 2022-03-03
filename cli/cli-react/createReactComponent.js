@@ -12,7 +12,7 @@ async function createReactComponent() {
         {
           type: "input",
           name: "componentName",
-          message: "What component you want to create?",
+          message: "Which component do you want to create?",
         },
       ])
       .then((answers) => {
@@ -23,13 +23,13 @@ async function createReactComponent() {
 
         if (!exportComponentsFileExists) {
           fs.writeFileSync(`./components/index.ts`, "");
-          console.log("Created index.ts file! 📄");
+          console.log("Created index.ts file! ✅");
         }
 
         refreshComponentsExports(answers.componentName, "add");
 
         console.log(
-          `Export "${answers.componentName}" added to index.ts file! 📄`
+          `Export "${answers.componentName}" added to index.ts file! ✅`
         );
 
         fs.mkdirSync(`./components/${answers.componentName}`);

@@ -18,5 +18,12 @@ $ npm i -g cli-moao
 $ moao
 ```
 
+- If you prefer, use a shortcut:
+
+```shell
+$ moao-react
+$ moao-vue
+```
+
 - Choose what you want to do: `Create` or `Delete`.
 - Enter the name of component.

@@ -1,8 +1,7 @@
 const fs = require("fs");
-
 let exportComponentsFile = "./components/index.ts";
 
-function refreshComponentsExports(componentName, method) {
+async function refreshComponentsExports(componentName, method) {
   if (method === "add") {
     if (
       !exportComponentsFile.includes(

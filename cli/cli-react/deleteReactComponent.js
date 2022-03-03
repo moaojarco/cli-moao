@@ -9,7 +9,7 @@ async function deleteReactComponent() {
         {
           type: "input",
           name: "componentName",
-          message: "Enter Component to delete: ",
+          message: "Which component do you want to delete?",
         },
       ])
       .then((answers) => {
