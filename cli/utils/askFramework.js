@@ -1,4 +1,3 @@
-"use strict";
 const { createReactComponent } = require("../cli-react/createReactComponent");
 const { deleteReactComponent } = require("../cli-react/deleteReactComponent");
 const { createVueComponent } = require("../cli-vue/createVueComponent");
