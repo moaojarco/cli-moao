@@ -4,6 +4,7 @@ const { refreshComponentsExports } = require("./refreshComponentsExports");
 
 let componentFolderCRA = fs.existsSync("./src/components");
 let componentFolderNext = fs.existsSync("./components");
+let componentFolderRemix = fs.existsSync("./app/components");
 
 async function deleteReactComponent() {
   try {
@@ -43,6 +44,17 @@ async function deleteReactComponent() {
             );
 
             refreshComponentsExports(answers.componentName, "delete", "next");
+          }, 2000);
+        }
+
+        if (componentFolderRemix) {
+          console.log("Removing component");
+          setTimeout(() => {
+            let componentPath = `./app/components/${answers.componentName}.tsx`;
+
+            fs.rm(componentPath, { recursive: true }, () =>
+              console.log(`Component "${answers.componentName}" deleted! 🗑️`)
+            );
           }, 2000);
         }
       });

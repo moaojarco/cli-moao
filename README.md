@@ -2,7 +2,7 @@
 
 This script will create or delete a React / Vue component.
 
-> Note: Now detect if you're using create-react-app, Next.js or Vite.
+> Note: Now detect if you're using create-react-app, Next.js, Vite or Remix.
 
 ## How usage?
 

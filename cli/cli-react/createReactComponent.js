@@ -1,18 +1,24 @@
 const inquirer = require("../utils/inquirer");
 const fs = require("fs");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
-const { layoutTemplate, componentTemplate } = require("../utils/templates");
+const {
+  layoutTemplate,
+  componentTemplate,
+  remixComponentTemplate,
+} = require("../utils/templates");
 
 let exportComponentCRA = "./src/components/index.ts";
 let exportComponentNext = "./components/index.ts";
 
 let componentFolderCRA = fs.existsSync("./src/components");
 let componentFolderNext = fs.existsSync("./components");
+let componentFolderRemix = fs.existsSync("./app/components");
 
 let srcFolder = fs.existsSync("./src");
+let appFolder = fs.existsSync("./app");
 let viteFileJs = fs.existsSync("./vite.config.js");
 let viteFileTs = fs.existsSync("./vite.config.ts");
-let usingCreateReactApp, usingNext;
+let usingCreateReactApp, usingNext, usingRemix;
 
 async function createReactComponent() {
   try {
@@ -129,7 +135,27 @@ async function createReactComponent() {
           );
         }
 
-        if (!srcFolder) {
+        if (appFolder && !viteFileJs && !viteFileTs && !srcFolder) {
+          usingRemix = true;
+          console.log("Remix detected! 🔥");
+
+          if (!componentFolderRemix && usingRemix) {
+            fs.mkdirSync("./app/components");
+            console.log("Components folder created! 📁");
+          }
+
+          console.log("Creating component...");
+
+          setTimeout(() => {
+            fs.writeFileSync(
+              `./app/components/${answers.componentName}.tsx`,
+              remixComponentTemplate(answers)
+            );
+
+            console.log(`Component "${answers.componentName}" created! ✅`);
+          }, 2000);
+        }
+        if (!srcFolder && !appFolder) {
           usingNext = true;
           console.log("Next.js detected! 🍫");
           if (!componentFolderNext && usingNext) {
