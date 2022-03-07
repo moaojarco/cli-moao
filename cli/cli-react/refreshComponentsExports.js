@@ -1,37 +1,96 @@
 const fs = require("fs");
-let exportComponentsFile = "./components/index.ts";
 
-async function refreshComponentsExports(componentName, method) {
+let exportComponentCRA = "./src/components/index.ts";
+let exportComponentNext = "./components/index.ts";
+let exportComponentRemix = "./app/components/index.ts";
+
+async function refreshComponentsExports(componentName, method, framework) {
   if (method === "add") {
-    if (
-      !exportComponentsFile.includes(
-        `export * from "./${componentName}/${componentName}";`
-      )
-    ) {
-      fs.appendFileSync(
-        "./components/index.ts",
-        `
-export * from "./${componentName}/${componentName}"`
-      );
+    if (framework === "create-react-app") {
+      if (
+        !exportComponentCRA.includes(
+          `export * from "./${componentName}/${componentName}";`
+        )
+      ) {
+        fs.appendFileSync(
+          "./src/components/index.ts",
+          `
+  export * from "./${componentName}/${componentName}"`
+        );
+      }
+    }
+
+    if (framework === "next") {
+      if (
+        !exportComponentNext.includes(
+          `export * from "./${componentName}/${componentName}";`
+        )
+      ) {
+        fs.appendFileSync(
+          "./components/index.ts",
+          `
+  export * from "./${componentName}/${componentName}"`
+        );
+      }
+    }
+
+    if (framework === "remix") {
+      if (
+        !exportComponentRemix.includes(
+          `export * from "./${componentName}/${componentName}";`
+        )
+      ) {
+        fs.appendFileSync(
+          "./app/components/index.ts",
+          `
+  export * from "./${componentName}/${componentName}"`
+        );
+      }
     }
   }
 
   if (method === "delete") {
-    if (
-      fs
-        .readFileSync(exportComponentsFile, "utf8")
-        .includes(`export * from "./${componentName}/${componentName}"`)
-    ) {
-      let file = fs.readFileSync(exportComponentsFile, "utf8");
-      file = file
-        .replace(`export * from "./${componentName}/${componentName}"`, "")
-        .trim();
-      fs.writeFileSync(exportComponentsFile, file);
+    if (framework === "create-react-app") {
+      if (
+        fs
+          .readFileSync(exportComponentCRA, "utf8")
+          .includes(`export * from "./${componentName}/${componentName}"`)
+      ) {
+        let file = fs.readFileSync(exportComponentCRA, "utf8");
+        file = file
+          .replace(`export * from "./${componentName}/${componentName}"`, "")
+          .trim();
+        fs.writeFileSync(exportComponentCRA, file);
+      }
     }
-  }
 
-  if (fs.readFileSync(exportComponentsFile, "utf8").length <= 1) {
-    fs.unlinkSync(exportComponentsFile);
+    if (framework === "next") {
+      if (
+        fs
+          .readFileSync(exportComponentNext, "utf8")
+          .includes(`export * from "./${componentName}/${componentName}"`)
+      ) {
+        let file = fs.readFileSync(exportComponentNext, "utf8");
+        file = file
+          .replace(`export * from "./${componentName}/${componentName}"`, "")
+          .trim();
+        fs.writeFileSync(exportComponentNext, file);
+      }
+    }
+
+    if (framework === "remix") {
+      if (
+        fs
+          .readFileSync(exportComponentRemix, "utf8")
+          .includes(`export * from "./${componentName}/${componentName}"`)
+      ) {
+        let file = fs.readFileSync(exportComponentRemix, "utf8");
+        file = file
+          .replace(`export * from "./${componentName}/${componentName}"`, "")
+          .trim();
+        fs.writeFileSync(exportComponentRemix, file);
+      }
+    }
   }
 }
 

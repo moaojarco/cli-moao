@@ -6,7 +6,7 @@ TODO:
   [ ] Ask if user want create other component
   [x] Remove prompt-radio @done(22-03-03 03:06)
   [x] Rework CLI with inquirer package @done(22-03-03 03:06)
-  [ ] Auto check if user has using CRA, Next.js or Remix
+  [x] Auto check if user has using CRA, Next.js or Remix @done(22-03-07 00:10)
 FIX:
   [x] Create Layout component @done(22-02-20 18:35)
   

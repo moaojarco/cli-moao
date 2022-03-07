@@ -2,6 +2,10 @@ const fs = require("fs");
 const inquirer = require("../utils/inquirer");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
 
+let componentFolderCRA = fs.existsSync("./src/components");
+let componentFolderNext = fs.existsSync("./components");
+let componentFolderRemix = fs.existsSync("./app/components");
+
 async function deleteReactComponent() {
   try {
     await inquirer
@@ -13,13 +17,48 @@ async function deleteReactComponent() {
         },
       ])
       .then((answers) => {
-        let componentPath = `./components/${answers.componentName}`;
+        if (componentFolderCRA) {
+          console.log("Removing component");
+          setTimeout(() => {
+            let componentPath = `./src/components/${answers.componentName}`;
 
-        fs.rm(componentPath, { recursive: true }, () =>
-          console.log(`Component "${answers.componentName}" deleted! 🗑️`)
-        );
+            fs.rm(componentPath, { recursive: true }, () =>
+              console.log(`Component "${answers.componentName}" deleted! 🗑️`)
+            );
 
-        refreshComponentsExports(answers.componentName, "delete");
+            refreshComponentsExports(
+              answers.componentName,
+              "delete",
+              "create-react-app"
+            );
+          }, 2000);
+        }
+
+        if (componentFolderNext) {
+          console.log("Removing component");
+          setTimeout(() => {
+            let componentPath = `./components/${answers.componentName}`;
+
+            fs.rm(componentPath, { recursive: true }, () =>
+              console.log(`Component "${answers.componentName}" deleted! 🗑️`)
+            );
+
+            refreshComponentsExports(answers.componentName, "delete", "next");
+          }, 2000);
+        }
+
+        if (componentFolderRemix) {
+          console.log("Removing component");
+          setTimeout(() => {
+            let componentPath = `./app/components/${answers.componentName}`;
+
+            fs.rm(componentPath, { recursive: true }, () =>
+              console.log(`Component "${answers.componentName}" deleted! 🗑️`)
+            );
+
+            refreshComponentsExports(answers.componentName, "delete", "remix");
+          }, 2000);
+        }
       });
   } catch (error) {
     console.error(error.message);
