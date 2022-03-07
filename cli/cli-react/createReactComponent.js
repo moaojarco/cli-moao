@@ -10,7 +10,8 @@ let componentFolderCRA = fs.existsSync("./src/components");
 let componentFolderNext = fs.existsSync("./components");
 
 let srcFolder = fs.existsSync("./src");
-let appFolder = fs.existsSync("./app");
+let viteFileJs = fs.existsSync("./vite.config.js");
+let viteFileTs = fs.existsSync("./vite.config.ts");
 let usingCreateReactApp, usingNext;
 
 async function createReactComponent() {
@@ -24,11 +25,63 @@ async function createReactComponent() {
         },
       ])
       .then((answers) => {
-        if (srcFolder) {
+        if (srcFolder && !viteFileJs && !viteFileTs) {
           usingCreateReactApp = true;
-          if (!componentFolderCRA && usingCreateReactApp) {
-            console.log("Create React APP detected!");
+          console.log("CRA detected! 🟦");
 
+          if (!componentFolderCRA && usingCreateReactApp) {
+            fs.mkdirSync("./src/components");
+            console.log("Components folder created! 📁");
+          }
+
+          console.log("Creating component...");
+
+          setTimeout(() => {
+            fs.mkdirSync(`./src/components/${answers.componentName}`);
+
+            if (answers.componentName === "Layout") {
+              // console.log(answers.componentName);
+              fs.writeFileSync(
+                `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
+                layoutTemplate(answers)
+              );
+            }
+
+            if (answers.componentName !== "Layout") {
+              fs.writeFileSync(
+                `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
+                componentTemplate(answers)
+              );
+            }
+
+            fs.writeFileSync(
+              `src/components/${answers.componentName}/${answers.componentName}.module.scss`,
+              ``
+            );
+
+            console.log(`Component "${answers.componentName}" created! ✅`);
+            console.log(
+              `Export "${answers.componentName}" added to index.ts file! ✅`
+            );
+          }, 2000);
+
+          if (!exportComponentCRA) {
+            fs.writeFileSync(`./src/components/index.ts`, "");
+            console.log("Created index.ts file! ✅");
+          }
+
+          refreshComponentsExports(
+            answers.componentName,
+            "add",
+            "create-react-app"
+          );
+        }
+
+        if (viteFileJs || viteFileTs) {
+          usingVite = true;
+          console.log("Vite detected! ⚡");
+
+          if (!componentFolderCRA && usingVite) {
             fs.mkdirSync("./src/components");
             console.log("Components folder created! 📁");
           }
@@ -78,7 +131,7 @@ async function createReactComponent() {
 
         if (!srcFolder) {
           usingNext = true;
-          console.log("Next.js detected!");
+          console.log("Next.js detected! 🍫");
           if (!componentFolderNext && usingNext) {
             fs.mkdirSync("./components");
             console.log("Components folder created! 📁");
