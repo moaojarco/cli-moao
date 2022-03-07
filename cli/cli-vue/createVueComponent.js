@@ -1,7 +1,12 @@
 const fs = require("fs");
 const inquirer = require("../utils/inquirer");
 
-let componentFolderExists = fs.existsSync("./components");
+let srcFolder = fs.existsSync("./src");
+let componentFolderVite = fs.existsSync("./src/components");
+let componentFolderNuxt = fs.existsSync("./components");
+let usingVite, usingNuxt;
+let viteFileJs = fs.existsSync("./vite.config.js");
+let viteFileTs = fs.existsSync("./vite.config.ts");
 
 async function createVueComponent() {
   try {
@@ -14,28 +19,68 @@ async function createVueComponent() {
         },
       ])
       .then((answers) => {
-        if (!componentFolderExists) {
-          fs.mkdirSync("./components");
-          console.log("Components folder created! 📁");
+        if (viteFileJs || viteFileTs) {
+          usingVite = true;
+          console.log("Vite detected! ⚡");
+
+          if (!componentFolderVite && usingVite) {
+            fs.mkdirSync("./src/components");
+            console.log("Components folder created! 📁");
+          }
+
+          console.log("Creating component...");
+
+          setTimeout(() => {
+            fs.writeFileSync(
+              `./src/components/${answers.componentName}.vue`,
+              `
+    <template>
+      <div>
+        <h1>${answers.componentName}</h1>
+      </div>
+    </template>
+    
+    <script>
+    export default {
+      name: '${answers.componentName}'
+    }
+    </script>
+    `
+            );
+            console.log(`Component "${answers.componentName}" created! ✅`);
+          }, 2000);
         }
 
-        fs.writeFileSync(
-          `./components/${answers.componentName}.vue`,
-          `
-<template>
-  <div>
-    <h1>${answers.componentName}</h1>
-  </div>
-</template>
+        if (!srcFolder) {
+          usingNuxt = true;
+          console.log("Nuxt detected! 🚀");
 
-<script>
-export default {
-  name: '${answers.componentName}'
-}
-</script>
-`
-        );
-        console.log(`Component "${answers.componentName}" created! ✅`);
+          if (!componentFolderNuxt && usingNuxt) {
+            fs.mkdirSync("./components");
+            console.log("Components folder created! 📁");
+          }
+          console.log("Creating component...");
+
+          setTimeout(() => {
+            fs.writeFileSync(
+              `./components/${answers.componentName}.vue`,
+              `
+    <template>
+      <div>
+        <h1>${answers.componentName}</h1>
+      </div>
+    </template>
+    
+    <script>
+    export default {
+      name: '${answers.componentName}'
+    }
+    </script>
+    `
+            );
+            console.log(`Component "${answers.componentName}" created! ✅`);
+          }, 2000);
+        }
       });
   } catch (error) {
     console.error(error.message);
