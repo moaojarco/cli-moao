@@ -2,8 +2,6 @@
 
 This script will create or delete a React / Vue component.
 
-> Note: Use with Next.js (with TypeScript) or Nuxt.js.
-
 ## How usage?
 
 - Install cli-moao package:
@@ -12,7 +10,7 @@ This script will create or delete a React / Vue component.
 $ npm i -g cli-moao
 ```
 
-- Start CLI and select which framework you're using.
+- Start CLI:
 
 ```shell
 $ moao
