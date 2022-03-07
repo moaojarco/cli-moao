@@ -2,7 +2,6 @@ const fs = require("fs");
 
 let exportComponentCRA = "./src/components/index.ts";
 let exportComponentNext = "./components/index.ts";
-let exportComponentRemix = "./app/components/index.ts";
 
 async function refreshComponentsExports(componentName, method, framework) {
   if (method === "add") {
@@ -28,20 +27,6 @@ async function refreshComponentsExports(componentName, method, framework) {
       ) {
         fs.appendFileSync(
           "./components/index.ts",
-          `
-  export * from "./${componentName}/${componentName}"`
-        );
-      }
-    }
-
-    if (framework === "remix") {
-      if (
-        !exportComponentRemix.includes(
-          `export * from "./${componentName}/${componentName}";`
-        )
-      ) {
-        fs.appendFileSync(
-          "./app/components/index.ts",
           `
   export * from "./${componentName}/${componentName}"`
         );
@@ -75,20 +60,6 @@ async function refreshComponentsExports(componentName, method, framework) {
           .replace(`export * from "./${componentName}/${componentName}"`, "")
           .trim();
         fs.writeFileSync(exportComponentNext, file);
-      }
-    }
-
-    if (framework === "remix") {
-      if (
-        fs
-          .readFileSync(exportComponentRemix, "utf8")
-          .includes(`export * from "./${componentName}/${componentName}"`)
-      ) {
-        let file = fs.readFileSync(exportComponentRemix, "utf8");
-        file = file
-          .replace(`export * from "./${componentName}/${componentName}"`, "")
-          .trim();
-        fs.writeFileSync(exportComponentRemix, file);
       }
     }
   }

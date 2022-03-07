@@ -1,23 +1,17 @@
 const inquirer = require("../utils/inquirer");
 const fs = require("fs");
 const { refreshComponentsExports } = require("./refreshComponentsExports");
-const {
-  layoutTemplate,
-  componentTemplate,
-  layoutRemixTemplate,
-} = require("../utils/templates");
+const { layoutTemplate, componentTemplate } = require("../utils/templates");
 
 let exportComponentCRA = "./src/components/index.ts";
 let exportComponentNext = "./components/index.ts";
-let exportComponentRemix = "./app/components/index.ts";
 
 let componentFolderCRA = fs.existsSync("./src/components");
 let componentFolderNext = fs.existsSync("./components");
-let componentFolderRemix = fs.existsSync("./app/components");
 
 let srcFolder = fs.existsSync("./src");
 let appFolder = fs.existsSync("./app");
-let usingCreateReactApp, usingNext, usingRemix;
+let usingCreateReactApp, usingNext;
 
 async function createReactComponent() {
   try {
@@ -65,6 +59,9 @@ async function createReactComponent() {
             );
 
             console.log(`Component "${answers.componentName}" created! ✅`);
+            console.log(
+              `Export "${answers.componentName}" added to index.ts file! ✅`
+            );
           }, 2000);
 
           if (!exportComponentCRA) {
@@ -77,13 +74,9 @@ async function createReactComponent() {
             "add",
             "create-react-app"
           );
-
-          console.log(
-            `Export "${answers.componentName}" added to index.ts file! ✅`
-          );
         }
 
-        if (!appFolder && !srcFolder) {
+        if (!srcFolder) {
           usingNext = true;
           console.log("Next.js detected!");
           if (!componentFolderNext && usingNext) {
@@ -116,6 +109,9 @@ async function createReactComponent() {
             );
 
             console.log(`Component "${answers.componentName}" created! ✅`);
+            console.log(
+              `Export "${answers.componentName}" added to index.ts file! ✅`
+            );
           }, 2000);
 
           if (!exportComponentNext) {
@@ -124,60 +120,6 @@ async function createReactComponent() {
           }
 
           refreshComponentsExports(answers.componentName, "add", "next");
-
-          console.log(
-            `Export "${answers.componentName}" added to index.ts file! ✅`
-          );
-        }
-
-        if (appFolder) {
-          usingRemix = true;
-          if (!componentFolderRemix && usingRemix) {
-            console.log("Remix detected!");
-
-            fs.mkdirSync("./app/components");
-            console.log("Components folder created! 📁");
-          }
-
-          console.log("Creating component...");
-
-          setTimeout(() => {
-            fs.mkdirSync(`./app/components/${answers.componentName}`);
-
-            if (answers.componentName === "Layout") {
-              // console.log(answers.componentName);
-              fs.writeFileSync(
-                `./app/components/${answers.componentName}/${answers.componentName}.tsx`,
-                layoutRemixTemplate(answers)
-              );
-            }
-
-            if (answers.componentName !== "Layout") {
-              fs.writeFileSync(
-                `./app/components/${answers.componentName}/${answers.componentName}.tsx`,
-                componentTemplate(answers)
-              );
-            }
-
-            fs.writeFileSync(
-              `app/components/${answers.componentName}/${answers.componentName}.module.scss`,
-              ``
-            );
-
-            console.log(`Component "${answers.componentName}" created! ✅`);
-          }, 2000);
-
-          if (!exportComponentRemix) {
-            fs.writeFileSync(`./app/components/index.ts`, "");
-            console.log("Created index.ts file! ✅");
-          }
-
-          refreshComponentsExports(answers.componentName, "add", "remix");
-
-          console.log(
-            `Export "${answers.componentName}" added to index.ts file! ✅`
-          );
-          // console.log(JSON.stringify(answers, null, "  "));
         }
       });
   } catch (error) {

@@ -2,6 +2,8 @@
 
 This script will create or delete a React / Vue component.
 
+> Note: Now detect if you are using create-react-app or Next.
+
 ## How usage?
 
 - Install cli-moao package:
