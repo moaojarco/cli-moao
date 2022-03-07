@@ -8,7 +8,7 @@ async function promptReact() {
       {
         type: "list",
         name: "action",
-        message: "Next.js 🔵: What you want to do?",
+        message: "React 🔵: What you want to do?",
         choices: ["Create Component", "Delete Component"],
         filter(val) {
           return val.toLowerCase();

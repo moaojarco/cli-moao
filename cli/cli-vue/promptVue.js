@@ -8,7 +8,7 @@ async function promptVue() {
       {
         type: "list",
         name: "action",
-        message: "Nuxt.js 🟢: What you want to do?",
+        message: "Vue 🟢: What you want to do?",
         choices: ["Create Component", "Delete Component"],
         filter(val) {
           return val.toLowerCase();

@@ -11,7 +11,7 @@ async function askFramework() {
         type: "list",
         name: "framework",
         message: "What framework you are using now?",
-        choices: ["React 🔵 (Next.js)", "Vue 🟢 (Nuxt.js)"],
+        choices: ["React 🔵", "Vue 🟢"],
       },
       {
         type: "list",
@@ -27,28 +27,28 @@ async function askFramework() {
       // console.log(JSON.stringify(answers, null, "  "));
 
       if (
-        answers.framework === "React 🔵 (Next.js)" &&
+        answers.framework === "React 🔵" &&
         answers.action === "create component"
       ) {
         await createReactComponent();
       }
 
       if (
-        answers.framework === "React 🔵 (Next.js)" &&
+        answers.framework === "React 🔵" &&
         answers.action === "delete component"
       ) {
         await deleteReactComponent();
       }
 
       if (
-        answers.framework === "Vue 🟢 (Nuxt.js)" &&
+        answers.framework === "Vue 🟢" &&
         answers.action === "create component"
       ) {
         await createVueComponent();
       }
 
       if (
-        answers.framework === "Vue 🟢 (Nuxt.js)" &&
+        answers.framework === "Vue 🟢" &&
         answers.action === "delete component"
       ) {
         await deleteVueComponent();

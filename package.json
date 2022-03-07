@@ -1,6 +1,6 @@
 {
   "name": "cli-moao",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "",
   "main": "./cli/index.js",
   "bin": {
@@ -17,7 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/moaojarco/cli-moao.git"
   },
-  "keywords": [],
+  "keywords": [
+    "cli",
+    "react",
+    "vue"
+  ],
   "author": "",
   "license": "MIT",
   "bugs": {
