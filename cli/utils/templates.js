@@ -36,4 +36,24 @@ export const ${answers.componentName} = () => {
 };  
 `;
 
-module.exports = { layoutTemplate, remixComponentTemplate, componentTemplate };
+const vueComponent = (answers) => `<script>
+export default {
+  name: '${answers.componentName}'
+}
+</script>
+
+<template>
+  <div>
+    <h1>${answers.componentName}</h1>
+  </div>
+</template>
+
+<style scoped>
+</style>`;
+
+module.exports = {
+  layoutTemplate,
+  remixComponentTemplate,
+  componentTemplate,
+  vueComponent,
+};

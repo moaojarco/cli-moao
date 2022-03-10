@@ -1,5 +1,6 @@
 const fs = require("fs");
 const inquirer = require("../utils/inquirer");
+const { vueComponent } = require("../utils/templates");
 
 let srcFolder = fs.existsSync("./src");
 let componentFolderVite = fs.existsSync("./src/components");
@@ -33,19 +34,7 @@ async function createVueComponent() {
           setTimeout(() => {
             fs.writeFileSync(
               `./src/components/${answers.componentName}.vue`,
-              `
-    <template>
-      <div>
-        <h1>${answers.componentName}</h1>
-      </div>
-    </template>
-    
-    <script>
-    export default {
-      name: '${answers.componentName}'
-    }
-    </script>
-    `
+              vueComponent(answers)
             );
             console.log(`Component "${answers.componentName}" created! ✅`);
           }, 2000);
@@ -64,19 +53,7 @@ async function createVueComponent() {
           setTimeout(() => {
             fs.writeFileSync(
               `./components/${answers.componentName}.vue`,
-              `
-    <template>
-      <div>
-        <h1>${answers.componentName}</h1>
-      </div>
-    </template>
-    
-    <script>
-    export default {
-      name: '${answers.componentName}'
-    }
-    </script>
-    `
+              vueComponent(answers)
             );
             console.log(`Component "${answers.componentName}" created! ✅`);
           }, 2000);
