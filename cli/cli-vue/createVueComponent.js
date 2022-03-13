@@ -1,11 +1,11 @@
 const fs = require("fs");
 const inquirer = require("../utils/inquirer");
-const { vueComponent } = require("../utils/templates");
+const { vueComponent, vueTypescriptComponent } = require("../utils/templates");
 
 let srcFolder = fs.existsSync("./src");
 let componentFolderVite = fs.existsSync("./src/components");
 let componentFolderNuxt = fs.existsSync("./components");
-let usingVite, usingNuxt;
+let usingVite, usingNuxt, usingTypescript;
 let viteFileJs = fs.existsSync("./vite.config.js");
 let viteFileTs = fs.existsSync("./vite.config.ts");
 
@@ -20,7 +20,7 @@ async function createVueComponent() {
         },
       ])
       .then((answers) => {
-        if (viteFileJs || viteFileTs) {
+        if (viteFileJs) {
           usingVite = true;
           console.log("Vite detected! ⚡");
 
@@ -35,6 +35,28 @@ async function createVueComponent() {
             fs.writeFileSync(
               `./src/components/${answers.componentName}.vue`,
               vueComponent(answers)
+            );
+            console.log(`Component "${answers.componentName}" created! ✅`);
+          }, 2000);
+        }
+
+        if (viteFileTs) {
+          usingTypescript = true;
+          usingVite = true;
+
+          console.log("Vite detected! ⚡");
+          console.log("Typescript detected! 🧊");
+
+          if (!componentFolderVite && usingTypescript) {
+            fs.mkdirSync("./src/components");
+            console.log("Components folder created! 📁");
+          }
+          console.log("Creating component...");
+
+          setTimeout(() => {
+            fs.writeFileSync(
+              `./src/components/${answers.componentName}.vue`,
+              vueTypescriptComponent(answers)
             );
             console.log(`Component "${answers.componentName}" created! ✅`);
           }, 2000);
