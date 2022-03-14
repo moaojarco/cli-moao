@@ -36,39 +36,42 @@ export const ${answers.componentName} = () => {
 };  
 `;
 
-const vueComponent = (answers) => `<script>
-export default {
-  name: '${answers.componentName}'
-}
+const vueComponent = (answers) => `<script setup>
+import { ref } from 'vue';
+
+const hello = ref("Hello");
 </script>
 
 <template>
   <div>
-    <h1>${answers.componentName}</h1>
+    <h1>{{ hello.value }} ${answers.componentName}</h1>
   </div>
 </template>
 
 <style scoped>
+h1 {
+  color: #42b883;
+  font-size: 2rem;
+}
 </style>`;
 
-const vueTypescriptComponent = (answers) => `<script lang="ts">
-import { defineComponent } from 'vue';
+const vueTypescriptComponent = (answers) => `<script lang="ts" setup>
+import { ref } from 'vue';
 
-  export default defineComponent({
-    name: '${answers.componentName}',
-    setup() {
-      
-    }
-  })
+const hello = ref("Hello");
 </script>
 
 <template>
   <div>
-    <h1>${answers.componentName}</h1>
+    <h1>{{ hello.value }} ${answers.componentName}</h1>
   </div>
 </template>
 
 <style scoped>
+h1 {
+  color: #42b883;
+  font-size: 2rem;
+}
 </style>`;
 
 module.exports = {

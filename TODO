@@ -7,3 +7,4 @@ TODO:
   [x] Rework CLI with inquirer package @done(22-03-03 03:06)
   [x] Autocheck if user start project using CRA, Next.js, Vite or Remix @done(22-03-07 00:10)
   [x] Create Layout component @done(22-02-20 18:35)
+  [x] Create a Vue component with Composition API instead Options API @done(22-03-14 07:35)
