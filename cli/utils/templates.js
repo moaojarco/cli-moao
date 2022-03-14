@@ -44,7 +44,7 @@ const hello = ref("Hello");
 
 <template>
   <div>
-    <h1>{{ hello.value }} ${answers.componentName}</h1>
+    <h1>{{ hello }} ${answers.componentName}</h1>
   </div>
 </template>
 
@@ -63,7 +63,7 @@ const hello = ref("Hello");
 
 <template>
   <div>
-    <h1>{{ hello.value }} ${answers.componentName}</h1>
+    <h1>{{ hello }} ${answers.componentName}</h1>
   </div>
 </template>
 
