@@ -1,21 +1,18 @@
 const layoutTemplate = (
   answers
-) => `import styles from "./${answers.componentName}.module.scss";
-export const ${answers.componentName} = ({ children }) => {
-  return <div className={styles.root}>{children}</div>
-}; 
+) => `const ${answers.componentName} = ({ children }) => {
+  return <div>{children}</div>
+};
+
+export default ${answers.componentName};
   `;
 
-const layoutTypescriptTemplate = (
-  answers
-) => `import styles from "./${answers.componentName}.module.scss";
-
-type Props = {
+const layoutTypescriptTemplate = (answers) => `type Props = {
   children: JSX.Element;
 }
   
 export const ${answers.componentName} = ({ children }: Props) => {
-  return <div className={styles.root}>{children}</div>
+  return <div>{children}</div>
 };  
   `;
 
@@ -31,7 +28,6 @@ const remixComponentTemplate = (
 `;
 
 const componentTemplate = (answers) => `import { useState } from "react";
-import styles from "./${answers.componentName}.module.scss";
 
 export const ${answers.componentName} = () => {
   const [initial, setInitial] = useState("");
@@ -42,6 +38,8 @@ export const ${answers.componentName} = () => {
     </div>
   );
 };  
+
+export default ${answers.componentName};
 `;
 
 const vueComponent = (answers) => `<script setup>
