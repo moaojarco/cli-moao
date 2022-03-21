@@ -5,6 +5,7 @@ const {
   layoutTemplate,
   componentTemplate,
   remixComponentTemplate,
+  layoutTypescriptTemplate,
 } = require("../utils/templates");
 
 let exportComponentCRA = "./src/components/index.ts";
@@ -13,6 +14,7 @@ let exportComponentNext = "./components/index.ts";
 let componentFolderCRA = fs.existsSync("./src/components");
 let componentFolderNext = fs.existsSync("./components");
 let componentFolderRemix = fs.existsSync("./app/components");
+let tsConfig = fs.existsSync("./tsconfig.json");
 
 let srcFolder = fs.existsSync("./src");
 let appFolder = fs.existsSync("./app");
@@ -35,6 +37,10 @@ async function createReactComponent() {
           usingCreateReactApp = true;
           console.log("CRA detected! 🟦");
 
+          if (tsConfig) {
+            console.log("Typescript detected! 🧊");
+          }
+
           if (!componentFolderCRA && usingCreateReactApp) {
             fs.mkdirSync("./src/components");
             console.log("Components folder created! 📁");
@@ -43,44 +49,64 @@ async function createReactComponent() {
           console.log("Creating component...");
 
           setTimeout(() => {
-            fs.mkdirSync(`./src/components/${answers.componentName}`);
+            if (tsConfig) {
+              fs.mkdirSync(`./src/components/${answers.componentName}`);
 
-            if (answers.componentName === "Layout") {
-              // console.log(answers.componentName);
+              if (answers.componentName === "Layout") {
+                // console.log(answers.componentName);
+                fs.writeFileSync(
+                  `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
+                  layoutTypescriptTemplate(answers)
+                );
+              }
+
+              if (answers.componentName !== "Layout") {
+                fs.writeFileSync(
+                  `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
+                  componentTemplate(answers)
+                );
+              }
+
               fs.writeFileSync(
-                `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
-                layoutTemplate(answers)
+                `src/components/${answers.componentName}/${answers.componentName}.module.scss`,
+                ``
+              );
+
+              if (!exportComponentCRA) {
+                fs.writeFileSync(`./src/components/index.ts`, "");
+                console.log("Created index.ts file! ✅");
+              }
+
+              refreshComponentsExports(
+                answers.componentName,
+                "add",
+                "create-react-app"
+              );
+
+              console.log(`Component "${answers.componentName}" created! ✅`);
+              console.log(
+                `Export "${answers.componentName}" added to index.ts file! ✅`
               );
             }
 
-            if (answers.componentName !== "Layout") {
-              fs.writeFileSync(
-                `./src/components/${answers.componentName}/${answers.componentName}.tsx`,
-                componentTemplate(answers)
-              );
+            if (!tsConfig) {
+              if (answers.componentName === "Layout") {
+                // console.log(answers.componentName);
+                fs.writeFileSync(
+                  `./src/components/${answers.componentName}.jsx`,
+                  layoutTemplate(answers)
+                );
+              }
+
+              if (answers.componentName !== "Layout") {
+                fs.writeFileSync(
+                  `./src/components/${answers.componentName}.jsx`,
+                  componentTemplate(answers)
+                );
+              }
+              console.log(`Component "${answers.componentName}" created! ✅`);
             }
-
-            fs.writeFileSync(
-              `src/components/${answers.componentName}/${answers.componentName}.module.scss`,
-              ``
-            );
-
-            console.log(`Component "${answers.componentName}" created! ✅`);
-            console.log(
-              `Export "${answers.componentName}" added to index.ts file! ✅`
-            );
           }, 2000);
-
-          if (!exportComponentCRA) {
-            fs.writeFileSync(`./src/components/index.ts`, "");
-            console.log("Created index.ts file! ✅");
-          }
-
-          refreshComponentsExports(
-            answers.componentName,
-            "add",
-            "create-react-app"
-          );
         }
 
         if (viteFileJs || viteFileTs) {
@@ -158,6 +184,11 @@ async function createReactComponent() {
         if (!srcFolder && !appFolder) {
           usingNext = true;
           console.log("Next.js detected! 🍫");
+
+          if (tsConfig) {
+            console.log("Typescript detected! 🧊");
+          }
+
           if (!componentFolderNext && usingNext) {
             fs.mkdirSync("./components");
             console.log("Components folder created! 📁");
@@ -165,40 +196,50 @@ async function createReactComponent() {
           console.log("Creating component...");
 
           setTimeout(() => {
-            fs.mkdirSync(`./components/${answers.componentName}`);
+            if (tsConfig) {
+              fs.mkdirSync(`./components/${answers.componentName}`);
 
-            if (answers.componentName === "Layout") {
-              // console.log(answers.componentName);
+              if (answers.componentName === "Layout") {
+                // console.log(answers.componentName);
+                fs.writeFileSync(
+                  `./components/${answers.componentName}/${answers.componentName}.tsx`,
+                  layoutTemplate(answers)
+                );
+              }
+
+              if (answers.componentName !== "Layout") {
+                fs.writeFileSync(
+                  `./components/${answers.componentName}/${answers.componentName}.tsx`,
+                  componentTemplate(answers)
+                );
+              }
+
               fs.writeFileSync(
-                `./components/${answers.componentName}/${answers.componentName}.tsx`,
-                layoutTemplate(answers)
+                `components/${answers.componentName}/${answers.componentName}.module.scss`,
+                ``
               );
+
+              console.log(`Component "${answers.componentName}" created! ✅`);
+              console.log(
+                `Export "${answers.componentName}" added to index.ts file! ✅`
+              );
+
+              if (!exportComponentNext) {
+                fs.writeFileSync(`./components/index.ts`, "");
+                console.log("Created index.ts file! ✅");
+              }
+
+              refreshComponentsExports(answers.componentName, "add", "next");
             }
 
-            if (answers.componentName !== "Layout") {
+            if (!tsConfig) {
               fs.writeFileSync(
-                `./components/${answers.componentName}/${answers.componentName}.tsx`,
+                `./components/${answers.componentName}.jsx`,
                 componentTemplate(answers)
               );
+              console.log(`Component "${answers.componentName}" created! ✅`);
             }
-
-            fs.writeFileSync(
-              `components/${answers.componentName}/${answers.componentName}.module.scss`,
-              ``
-            );
-
-            console.log(`Component "${answers.componentName}" created! ✅`);
-            console.log(
-              `Export "${answers.componentName}" added to index.ts file! ✅`
-            );
           }, 2000);
-
-          if (!exportComponentNext) {
-            fs.writeFileSync(`./components/index.ts`, "");
-            console.log("Created index.ts file! ✅");
-          }
-
-          refreshComponentsExports(answers.componentName, "add", "next");
         }
       });
   } catch (error) {

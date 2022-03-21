@@ -1,6 +1,14 @@
 const layoutTemplate = (
   answers
 ) => `import styles from "./${answers.componentName}.module.scss";
+export const ${answers.componentName} = ({ children }) => {
+  return <div className={styles.root}>{children}</div>
+}; 
+  `;
+
+const layoutTypescriptTemplate = (
+  answers
+) => `import styles from "./${answers.componentName}.module.scss";
 
 type Props = {
   children: JSX.Element;
@@ -76,6 +84,7 @@ h1 {
 
 module.exports = {
   layoutTemplate,
+  layoutTypescriptTemplate,
   remixComponentTemplate,
   componentTemplate,
   vueComponent,
