@@ -10,10 +10,10 @@ export default ${answers.componentName};
 const layoutTypescriptTemplate = (answers) => `type Props = {
   children: JSX.Element;
 }
-  
+
 export const ${answers.componentName} = ({ children }: Props) => {
   return <div>{children}</div>
-};  
+};
   `;
 
 const remixComponentTemplate = (
@@ -37,9 +37,7 @@ export const ${answers.componentName} = () => {
       <h1>${answers.componentName}</h1>
     </div>
   );
-};  
-
-export default ${answers.componentName};
+};
 `;
 
 const vueComponent = (answers) => `<script setup>
