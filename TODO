@@ -8,6 +8,6 @@ TODO:
   [x] Autocheck if user start project using CRA, Next.js, Vite or Remix @done(22-03-07 00:10)
   [x] Create Layout component @done(22-02-20 18:35)
   [x] Create a Vue component with Composition API instead Options API @done(22-03-14 07:35)
-
+  [ ] Release V2 with Typescript
   FIX: 
     [x] Check if has typescript (React) @done(22-03-21 13:30)
