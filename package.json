@@ -1,5 +1,5 @@
 {
-  "name": "cli-moao-ts",
+  "name": "cli-moao",
   "version": "1.0.0",
   "main": "dist/cli/index.js",
   "license": "MIT",
