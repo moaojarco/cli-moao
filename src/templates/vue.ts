@@ -1,9 +1,9 @@
-export const componentTemplate = () => `<script setup>
-import { ref } from "vue";
-const counter = ref(0);
+import { IAnswers } from "../../types";
+
+export const componentTemplate = (answers: IAnswers) => `<script setup>
 </script>
 
 <template>
-  <h1>{{ counter }}</h1>
+  <h1>${answers.componentName}</h1>
 </template>
 `;

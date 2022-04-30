@@ -25,7 +25,7 @@ async function createVueComponent() {
         setTimeout(() => {
           fs.writeFileSync(
             `./src/components/${answers.componentName}.vue`,
-            componentTemplate()
+            componentTemplate(answers)
           );
         }, 2000);
       });
